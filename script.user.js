@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Link History
 // @namespace    https://github.com/czrsd/debrid-link-history
-// @version      1.0.0
+// @version      1.0.1
 // @description  Show history of generated links
 // @author       @czrsd
 // @match        https://debrid-link.com/webapp/*
@@ -16,7 +16,7 @@
     let initialized = false;
     /** @type {string} */
     let lastPath = location.pathname;
-    /** @type {string} */
+    /** @type {string|null} */
     let openedWrapperId = null;
 
     /** @returns {void} */
@@ -117,7 +117,10 @@
      */
     const closeWrapper = (wrapper) => {
         wrapper.style.opacity = '0';
-        setTimeout(() => wrapper.remove(), 100);
+        setTimeout(() => {
+            wrapper.remove();
+            openedWrapperId = null;
+        }, 100);
     };
 
 	/**
